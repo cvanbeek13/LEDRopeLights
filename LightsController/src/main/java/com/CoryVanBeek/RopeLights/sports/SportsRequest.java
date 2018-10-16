@@ -11,6 +11,7 @@ import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * Framework for requesting game updates from the MySportsFeed API for a specific team
@@ -19,13 +20,15 @@ import java.util.Date;
  */
 public abstract class SportsRequest<T extends SportsResponse> {
     private Class<T> tClass;
-    static final DateFormat format = new SimpleDateFormat("yyyyMMdd");
+    final DateFormat format;
     protected int teamId;
     protected String season;
     protected Date date;
 
     SportsRequest(Class<T> tClass) {
         this.tClass = tClass;
+        format =  new SimpleDateFormat("yyyyMMdd");
+        format.setTimeZone(TimeZone.getTimeZone("UTC"));
     }
 
     /**
