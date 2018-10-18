@@ -31,6 +31,7 @@ public class BaseballGamesResponse implements SportsResponse {
     @Override
     public void parse(String jsonString) {
         try {
+            logger.trace("Parsing baseball response: \n{}", jsonString);
             JSONBaseballResponse response = mapper.readValue(jsonString, JSONBaseballResponse.class);
             this.games = response.games;
         } catch (IOException e) {
@@ -46,8 +47,10 @@ public class BaseballGamesResponse implements SportsResponse {
     @Override
     public SportsGame getGame(int id) {
         for (BaseballGame game : games) {
-            if (game.schedule != null && game.schedule.id == id)
+            if (game.schedule != null && game.schedule.id == id) {
                 return game;
+            }
+
         }
         return null;
     }

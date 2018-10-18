@@ -39,7 +39,6 @@ public class SubscriptionCheckerDaily extends TimerTask {
         for(int i = 0; i < response.getGames().length; i++) {
             SportsGame game = response.getGames()[i];
             if(!game.isFinished()) {
-                subscription.addTrackedGame(game);
                 Date endTime = game.estimatedEndTime();
                 logger.info("Team {} plays today.  Scheduling a check for {}", subscription.getTeamId(), endTime);
                 subscription.getTimer().schedule(new SubscriptionCheckerGame(subscription, date, game.getGameID()), endTime);
@@ -50,6 +49,9 @@ public class SubscriptionCheckerDaily extends TimerTask {
         logger.debug("Scheduling check for tomorrow morning for team: {}", subscription.getTeamId());
         LocalTime midnight = LocalTime.MIDNIGHT;
         Date tomorrow = Date.from(LocalDateTime.of(date.toInstant().atZone(ZoneId.of("UTC")).toLocalDate(), midnight).plusDays(1).plusMinutes(1).toInstant(OffsetDateTime.now().getOffset()));
-        subscription.getTimer().schedule(new SubscriptionCheckerDaily(subscription, tomorrow), tomorrow);
+        if(tomorrow.before(new Date()))
+            subscription.getTimer().schedule(new SubscriptionCheckerDaily(subscription, tomorrow), 2000);
+        else
+            subscription.getTimer().schedule(new SubscriptionCheckerDaily(subscription, tomorrow), tomorrow);
     }
 }

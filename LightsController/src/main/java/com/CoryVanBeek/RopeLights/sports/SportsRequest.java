@@ -2,6 +2,8 @@ package com.CoryVanBeek.RopeLights.sports;
 
 import com.CoryVanBeek.RopeLights.thing.utils.LightsUtil;
 import org.apache.commons.codec.binary.Base64;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
@@ -19,6 +21,8 @@ import java.util.TimeZone;
  * @author Cory Van Beek
  */
 public abstract class SportsRequest<T extends SportsResponse> {
+    private static final Logger logger = LoggerFactory.getLogger(SportsRequest.class);
+
     private Class<T> tClass;
     final DateFormat format;
     protected int teamId;
@@ -52,6 +56,7 @@ public abstract class SportsRequest<T extends SportsResponse> {
             HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
             connection.setDoOutput(true);
             connection.setRequestProperty("Authorization", "Basic " + encoding);
+            logger.trace("Sending request to {}", url);
 
             InputStream content = connection.getInputStream();
             BufferedReader in = new BufferedReader(new InputStreamReader(content));

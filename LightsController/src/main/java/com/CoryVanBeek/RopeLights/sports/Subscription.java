@@ -7,9 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Date;
-import java.util.Map;
 import java.util.Timer;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * This class is used to subscribe to game updates using the MySportsFeed API.
@@ -25,16 +23,13 @@ public class Subscription {
     private String league;
     private PropertiesHolder winState;
     private int teamId;
-    //private boolean[] completedGames;
     private Timer timer;
 
-    private Map<Integer, SportsGame> trackedGames;
 
     Subscription(SportsTeam team, LightsBridge bridge, LightsProperties properties) {
         this.league = team.getLeague();
         this.teamId = team.getId();
         this.bridge = bridge;
-        trackedGames = new ConcurrentHashMap<>();
 
         this.winState = new PropertiesHolder();
         //TODO: Make the winState based off of defaults in properties that could be overwritten in the properties file
@@ -45,7 +40,7 @@ public class Subscription {
         winState.duration = 1000 * 60 * 60;
 
         this.timer = new Timer();
-        timer.schedule(new SubscriptionCheckerDaily(this, new Date()), 5000);
+        timer.schedule(new SubscriptionCheckerDaily(this, new Date(System.currentTimeMillis() - 1000 * 60 * 60 * 24)), 5000);
         logger.info("Subscribed to {} team {}", league, teamId);
     }
 
@@ -69,31 +64,7 @@ public class Subscription {
         return league;
     }
 
-//    public boolean[] getCompletedGames() {
-//        return completedGames;
-//    }
-//
-//    public void setCompletedGames(boolean[] completedGame) {
-//        this.completedGames = completedGame;
-//    }
-
     public Timer getTimer() {
         return timer;
-    }
-
-    public void addTrackedGame(SportsGame game) {
-        trackedGames.put(game.getGameID(), game);
-    }
-
-    public SportsGame getTrackedGame(int id) {
-        return trackedGames.get(id);
-    }
-
-    public void updateTrackedGame(SportsGame game) {
-        trackedGames.replace(game.getGameID(), game);
-    }
-
-    public void removeTrackedGame(int id) {
-        trackedGames.remove(id);
     }
 }
