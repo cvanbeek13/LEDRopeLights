@@ -34,10 +34,11 @@ public class Subscription {
         this.winState = new PropertiesHolder();
         //TODO: Make the winState based off of defaults in properties that could be overwritten in the properties file
         winState.colors = team.getTeamColors();
-        winState.deltaTime = 2000;
-        winState.mode = "Sin";
+        winState.deltaTime = 4000L;
+        winState.mode = "sin";
         winState.power = "on";
-        winState.duration = 1000 * 60 * 60;
+        winState.duration = 1000L * 60L * 60L;
+        winState.teams = null;
 
         this.timer = new Timer();
         timer.schedule(new SubscriptionCheckerDaily(this, new Date(System.currentTimeMillis() - 1000 * 60 * 60 * 24)), 5000);

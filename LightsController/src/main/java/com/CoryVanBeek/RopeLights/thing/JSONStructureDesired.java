@@ -13,7 +13,7 @@ public class JSONStructureDesired implements Holder {
     }
 
     @Override
-    public PropertiesHolder getProps() {
+    public PropertiesHolder heldProperties() {
         return state.desired;
     }
 
