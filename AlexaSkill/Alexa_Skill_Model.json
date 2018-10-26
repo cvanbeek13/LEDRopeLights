@@ -1,0 +1,709 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "rope lights",
+            "intents": [
+                {
+                    "name": "AMAZON.FallbackIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
+                },
+                {
+                    "name": "Power",
+                    "slots": [
+                        {
+                            "name": "powerState",
+                            "type": "POWER",
+                            "samples": [
+                                "off",
+                                "on"
+                            ]
+                        }
+                    ],
+                    "samples": [
+                        "turn {powerState}  the power",
+                        "turn the power {powerState}",
+                        "turn the lights {powerState}",
+                        "turn {powerState} the lights"
+                    ]
+                },
+                {
+                    "name": "setBrightness",
+                    "slots": [
+                        {
+                            "name": "value",
+                            "type": "BRIGHTNESS_VALUE"
+                        }
+                    ],
+                    "samples": [
+                        "{value} brightness",
+                        "change the brightness to {value}",
+                        "set the brightness to {value}"
+                    ]
+                },
+                {
+                    "name": "setColor",
+                    "slots": [
+                        {
+                            "name": "color",
+                            "type": "COLOR"
+                        }
+                    ],
+                    "samples": [
+                        "make the color {color}",
+                        "set the lights to {color}",
+                        "{color} color",
+                        "make the lights {color}",
+                        "set the color to {color}"
+                    ]
+                },
+                {
+                    "name": "setMode",
+                    "slots": [
+                        {
+                            "name": "mode",
+                            "type": "MODE"
+                        }
+                    ],
+                    "samples": [
+                        "set the lights mode to {mode}"
+                    ]
+                },
+                {
+                    "name": "Subscribe",
+                    "slots": [
+                        {
+                            "name": "team",
+                            "type": "TEAMS",
+                            "samples": [
+                                "the {team}",
+                                "team {team}",
+                                "{team}"
+                            ]
+                        }
+                    ],
+                    "samples": [
+                        "track the {team}",
+                        "track {team}",
+                        "subscribe to the {team}",
+                        "subscribe to {team}"
+                    ]
+                },
+                {
+                    "name": "Unsubscribe",
+                    "slots": [
+                        {
+                            "name": "team",
+                            "type": "TEAMS",
+                            "samples": [
+                                "unsubscribe from the {team}",
+                                "unsubscribe from {team}",
+                                "{team}",
+                                "the {team}"
+                            ]
+                        }
+                    ],
+                    "samples": [
+                        "unsubscribe from {team}",
+                        "unsubscribe to {team}",
+                        "unsubscribe to the {team}",
+                        "unsubscribe from the {team}"
+                    ]
+                }
+            ],
+            "types": [
+                {
+                    "name": "POWER",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "OFF"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "ON"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "BRIGHTNESS_VALUE",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "8",
+                                "synonyms": [
+                                    "max",
+                                    "highest",
+                                    "high",
+                                    "full"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "7"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "6",
+                                "synonyms": [
+                                    "three quarters"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "5"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "4",
+                                "synonyms": [
+                                    "half"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "3"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "2"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "1",
+                                "synonyms": [
+                                    "low",
+                                    "minimum",
+                                    "min"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "COLOR",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "white"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "purple",
+                                "synonyms": [
+                                    "violet"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "blue"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "green"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "yellow"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "orange"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "red"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "MODE",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "mesh"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "sin"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "fade"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "flash"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "constant"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "TEAMS",
+                    "values": [
+                        {
+                            "id": "126",
+                            "name": {
+                                "value": "Washington Nationals",
+                                "synonyms": [
+                                    "Nationals"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "112",
+                            "name": {
+                                "value": "Toronto Blue Jays",
+                                "synonyms": [
+                                    "Blue Jays"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "121",
+                            "name": {
+                                "value": "Texas Rangers"
+                            }
+                        },
+                        {
+                            "id": "115",
+                            "name": {
+                                "value": "Tampa Bay Rays",
+                                "synonyms": [
+                                    "Rays"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "133",
+                            "name": {
+                                "value": "St. Louis Cardinals",
+                                "synonyms": [
+                                    "Saint Louis Cardinals"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "123",
+                            "name": {
+                                "value": "Seattle Mariners",
+                                "synonyms": [
+                                    "Mariners"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "136",
+                            "name": {
+                                "value": "San Francisco Giants "
+                            }
+                        },
+                        {
+                            "id": "139",
+                            "name": {
+                                "value": "San Diego Padres",
+                                "synonyms": [
+                                    "Padres"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "132",
+                            "name": {
+                                "value": "Pittsburgh Pirates",
+                                "synonyms": [
+                                    "Pirates"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "129",
+                            "name": {
+                                "value": "Philadelphia Phillies",
+                                "synonyms": [
+                                    "Phillies"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "125",
+                            "name": {
+                                "value": "Oakland Athletics",
+                                "synonyms": [
+                                    "A's",
+                                    "Athletics"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "114",
+                            "name": {
+                                "value": "New York Yankees",
+                                "synonyms": [
+                                    "Yankees"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "127",
+                            "name": {
+                                "value": "New York Mets",
+                                "synonyms": [
+                                    "Mets"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "120",
+                            "name": {
+                                "value": "Minnesota Twins",
+                                "synonyms": [
+                                    "Twins"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "134",
+                            "name": {
+                                "value": "Milwaukee Brewers",
+                                "synonyms": [
+                                    "Brew Crew",
+                                    "Brewers"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "128",
+                            "name": {
+                                "value": "Miami Marlins",
+                                "synonyms": [
+                                    "Marlins"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "137",
+                            "name": {
+                                "value": "Los Angeles Dodgers",
+                                "synonyms": [
+                                    "Dodgers"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "124",
+                            "name": {
+                                "value": "Los Angeles Angels",
+                                "synonyms": [
+                                    "Angels"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "118",
+                            "name": {
+                                "value": "Kansas City Royals",
+                                "synonyms": [
+                                    "Royals"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "122",
+                            "name": {
+                                "value": "Houston Astros",
+                                "synonyms": [
+                                    "Astros"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "117",
+                            "name": {
+                                "value": "Detroit Tigers",
+                                "synonyms": [
+                                    "Tigers"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "138",
+                            "name": {
+                                "value": "Colorado Rockies",
+                                "synonyms": [
+                                    "Rockies"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "116",
+                            "name": {
+                                "value": "Cleveland Indians",
+                                "synonyms": [
+                                    "Indians"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "135",
+                            "name": {
+                                "value": "Cincinnati Reds",
+                                "synonyms": [
+                                    "Reds"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "119",
+                            "name": {
+                                "value": "Chicago White Sox",
+                                "synonyms": [
+                                    "Chicago White Socks",
+                                    "White Socks"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "131",
+                            "name": {
+                                "value": "Chicago Cubs",
+                                "synonyms": [
+                                    "Cubs"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "113",
+                            "name": {
+                                "value": "Boston Red Sox",
+                                "synonyms": [
+                                    "Red Socks",
+                                    "Boston Red Socks"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "111",
+                            "name": {
+                                "value": "Baltimore Orioles",
+                                "synonyms": [
+                                    "Orioles"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "130",
+                            "name": {
+                                "value": "Atlanta Braves"
+                            }
+                        },
+                        {
+                            "id": "140",
+                            "name": {
+                                "value": "Arizona Diamondbacks",
+                                "synonyms": [
+                                    "Diamondbacks"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        "dialog": {
+            "intents": [
+                {
+                    "name": "Power",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "powerState",
+                            "type": "POWER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1505507381416.12425195480"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "setMode",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "mode",
+                            "type": "MODE",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.697545068378.589073191835"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "setColor",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "color",
+                            "type": "COLOR",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.551672749616.798010657350"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "setBrightness",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "value",
+                            "type": "BRIGHTNESS_VALUE",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1164550045093.734404521310"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Subscribe",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "team",
+                            "type": "TEAMS",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1455643218839.665114063325"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Unsubscribe",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "team",
+                            "type": "TEAMS",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.89990764771.1532982613529"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        "prompts": [
+            {
+                "id": "Elicit.Slot.1505507381416.12425195480",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Do you wish to turn the rope lights on or off?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.697545068378.589073191835",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What mode would you like to set the lights to?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.551672749616.798010657350",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What color do you want to set the lights to?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.1164550045093.734404521310",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Choose a brightness level between one and eight"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.1455643218839.665114063325",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What team would you like to subsribe to?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.89990764771.1532982613529",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What team would you like to unsubscribe from?"
+                    }
+                ]
+            }
+        ]
+    }
+}
