@@ -17,6 +17,7 @@ import java.util.Timer;
 public class Subscription {
     private static final Logger logger = LoggerFactory.getLogger(Subscription.class);
     static final String LEAGUE_BASEBALL = "mlb";
+    static final String LEAGUE_HOCKEY = "nhl";
 
     private LightsBridge bridge;
 

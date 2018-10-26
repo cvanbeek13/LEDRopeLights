@@ -30,7 +30,9 @@ public class SubscriptionCheckerDaily extends TimerTask {
         SportsRequest request;
         if(Subscription.LEAGUE_BASEBALL.equalsIgnoreCase(subscription.getLeague()))
             request = new BaseballGamesRequest(subscription.getTeamId(), date);
-            //TODO: Add other leagues
+        else if(Subscription.LEAGUE_HOCKEY.equalsIgnoreCase(subscription.getLeague()))
+            request = new HockeyGamesRequest(subscription.getTeamId(), date);
+        //TODO: Add other leagues
         else
             return;
 
