@@ -6,6 +6,7 @@ import com.CoryVanBeek.RopeLights.thing.*;
 import com.amazonaws.services.iot.client.AWSIotDevice;
 import com.amazonaws.services.iot.client.AWSIotException;
 import com.amazonaws.services.iot.client.AWSIotMqttClient;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -47,7 +48,8 @@ public class LightsBridge {
         controller = new PiController(this);
         objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        objectMapper.configure(SerializationFeature.WRITE_EMPTY_JSON_ARRAYS, false);
+        objectMapper.configure(SerializationFeature.WRITE_EMPTY_JSON_ARRAYS, true);
+        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         SimpleModule module = new SimpleModule();
         module.setDeserializerModifier(new BeanDeserializerModifier() {
             @Override
@@ -97,7 +99,7 @@ public class LightsBridge {
     public void updateFromDeltaJSON(String jsonString) {
         Thread updateThread = new Thread(() -> {
             try {
-                logger.info("Updating Lights Controller");
+                logger.info("Updating Lights Controller from delta message");
                 JSONStructureDelta structure = objectMapper.readValue(jsonString, JSONStructureDelta.class);
                 LightState desiredState = new LightState(structure, states.peek());
                 setCurrentState(desiredState);

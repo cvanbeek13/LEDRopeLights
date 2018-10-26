@@ -1,8 +1,5 @@
 package com.CoryVanBeek.RopeLights.sports;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-
 /**
  * An interface for parsing responses from the MySportsFeed Daily Games API
  *
@@ -22,4 +19,12 @@ public interface SportsResponse {
      * @return
      */
     SportsGame[] getGames();
+
+    /**
+     * Gets the SportsGame with the specific MySportsFeed Game ID from the response
+     *
+     * @param id The MySportsFeed Game ID
+     * @return The SportsGame instance
+     */
+    SportsGame getGame(int id);
 }

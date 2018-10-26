@@ -9,7 +9,7 @@ public class JSONStructureReceived implements Holder {
     public State state = new State();
 
     @Override
-    public PropertiesHolder getProps() {
+    public PropertiesHolder heldProperties() {
         return state.reported;
     }
 

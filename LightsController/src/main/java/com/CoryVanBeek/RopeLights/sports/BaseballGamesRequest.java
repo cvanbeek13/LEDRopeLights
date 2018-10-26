@@ -8,9 +8,13 @@ import java.util.Date;
 class BaseballGamesRequest extends SportsRequest<BaseballGamesResponse> {
 
     BaseballGamesRequest(int teamId) {
+        this(teamId, new Date());
+    }
+
+    BaseballGamesRequest(int teamId, Date date) {
         super(BaseballGamesResponse.class);
         this.teamId = teamId;
-        date = new Date();
+        this.date = date;
         season = "current";
     }
 

@@ -26,7 +26,7 @@ public class LightState implements Serializable{
     private volatile transient int colorPointer;
 
     LightState(Holder structure, LightState current) {
-        PropertiesHolder holder = structure.getProps();
+        PropertiesHolder holder = structure.heldProperties();
 
         if(holder.power == null)
             power = current.isOn();
@@ -53,7 +53,7 @@ public class LightState implements Serializable{
             }
         }
 
-        if(holder.brightness == 0)
+        if(holder.brightness == null || holder.brightness == 0)
             brightness = current.brightness;
         else {
             int temp = holder.brightness;
@@ -64,7 +64,7 @@ public class LightState implements Serializable{
             brightness = temp;
         }
 
-        if(holder.deltaTime == 0)
+        if(holder.deltaTime == null || holder.deltaTime == 0)
             deltaTime = current.deltaTime;
         else {
             long temp = holder.deltaTime;
@@ -73,7 +73,7 @@ public class LightState implements Serializable{
             deltaTime = temp;
         }
 
-        if(holder.duration == 0)
+        if(holder.duration == null || holder.duration == 0)
             duration = current.duration;
         else {
             long temp = holder.duration;

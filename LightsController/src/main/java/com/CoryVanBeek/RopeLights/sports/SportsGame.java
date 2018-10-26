@@ -8,6 +8,17 @@ import java.util.Date;
  * @author Cory Van Beek
  */
 public interface SportsGame {
+    String COMPLETED = "COMPLETED";
+    String COMPLETED_PENDING_REVIEW = "COMPLETED_PENDING_REVIEW";
+    String LIVE = "LIVE";
+    String RESPONSE_DATE_PATTERN = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
+
+    /**
+     * Gets the MySportsFeed game ID
+     *
+     * @return The game ID
+     */
+    int getGameID();
 
     /**
      * Checks to see if the game is finished
