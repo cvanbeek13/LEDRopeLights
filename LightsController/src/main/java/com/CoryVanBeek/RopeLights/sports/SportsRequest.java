@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -47,30 +48,31 @@ public abstract class SportsRequest<T extends SportsResponse> {
      *
      * @return The SportsResponse for the correct sport (T)
      */
-    public T send() {
+    public T send() throws IOException {
+        String apiToken = LightsUtil.getConfig("SportsToken");
+        URL url = new URL (getURL());
+        String encoding = new String(Base64.encodeBase64 ((apiToken + ":MYSPORTSFEEDS").getBytes()));
+
+        HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
+        connection.setDoOutput(true);
+        connection.setRequestProperty("Authorization", "Basic " + encoding);
+        logger.trace("Sending request to {}", url);
+
+        InputStream content = connection.getInputStream();
+        BufferedReader in = new BufferedReader(new InputStreamReader(content));
+        String line;
+        StringBuilder all = new StringBuilder();
+        while ((line = in.readLine()) != null) {
+            all.append(line);
+        }
+
+        T response = null;
         try {
-            String apiToken = LightsUtil.getConfig("SportsToken");
-            URL url = new URL (getURL());
-            String encoding = new String(Base64.encodeBase64 ((apiToken + ":MYSPORTSFEEDS").getBytes()));
-
-            HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
-            connection.setDoOutput(true);
-            connection.setRequestProperty("Authorization", "Basic " + encoding);
-            logger.trace("Sending request to {}", url);
-
-            InputStream content = connection.getInputStream();
-            BufferedReader in = new BufferedReader(new InputStreamReader(content));
-            String line;
-            StringBuilder all = new StringBuilder();
-            while ((line = in.readLine()) != null) {
-                all.append(line);
-            }
-            T response = tClass.newInstance();
-            response.parse(all.toString());
-            return response;
-        } catch(Exception e) {
+            response = tClass.newInstance();
+        } catch (InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
         }
-        return null;
+        response.parse(all.toString());
+        return response;
     }
 }
