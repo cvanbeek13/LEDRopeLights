@@ -3,6 +3,7 @@ package com.CoryVanBeek.RopeLights.sports;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.TimerTask;
 
@@ -31,18 +32,20 @@ public class SubscriptionCheckerGame extends TimerTask {
         SportsRequest request;
         if(Subscription.LEAGUE_BASEBALL.equalsIgnoreCase(subscription.getLeague()))
             request = new BaseballGamesRequest(subscription.getTeamId(), date);
+        else if(Subscription.LEAGUE_HOCKEY.equalsIgnoreCase(subscription.getLeague()))
+            request = new HockeyGamesRequest(subscription.getTeamId(), date);
         //TODO: Add other leagues
         else
             return;
 
-        SportsResponse response = request.send();
-        if(response == null) {
-            logger.warn("Unable to receive response for team {}.  Will try again in two minutes.", subscription.getTeamId());
+        SportsResponse response;
+        try {
+            response = request.send();
+        } catch(IOException e) {
+            logger.warn("Unable to receive response for team " + subscription.getTeamId() + ".  Will try again in two minutes.", e);
             subscription.getTimer().schedule(new SubscriptionCheckerGame(subscription, date, gameID), new Date(new Date().getTime() + 120000));
             return;
         }
-        else
-            logger.debug("Successfully received response for team {}", subscription.getTeamId());
 
         logger.trace("Getting game with id {}", gameID);
         SportsGame game = response.getGame(gameID);

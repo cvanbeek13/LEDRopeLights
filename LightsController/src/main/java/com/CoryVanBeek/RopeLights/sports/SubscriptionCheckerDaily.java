@@ -3,6 +3,7 @@ package com.CoryVanBeek.RopeLights.sports;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.time.*;
 import java.util.Date;
 import java.util.TimerTask;
@@ -36,15 +37,19 @@ public class SubscriptionCheckerDaily extends TimerTask {
         else
             return;
 
-        SportsResponse response = request.send();
+        try {
+            SportsResponse response = request.send();
 
-        for(int i = 0; i < response.getGames().length; i++) {
-            SportsGame game = response.getGames()[i];
-            if(!game.isFinished()) {
-                Date endTime = game.estimatedEndTime();
-                logger.info("Team {} plays today.  Scheduling a check for {}", subscription.getTeamId(), endTime);
-                subscription.getTimer().schedule(new SubscriptionCheckerGame(subscription, date, game.getGameID()), endTime);
+            for(int i = 0; i < response.getGames().length; i++) {
+                SportsGame game = response.getGames()[i];
+                if(!game.isFinished()) {
+                    Date endTime = game.estimatedEndTime();
+                    logger.info("Team {} plays today.  Scheduling a check for {}", subscription.getTeamId(), endTime);
+                    subscription.getTimer().schedule(new SubscriptionCheckerGame(subscription, date, game.getGameID()), endTime);
+                }
             }
+        } catch (IOException e) {
+            logger.warn("IOException caught while requesting data for team " + subscription.getTeamId(), e);
         }
 
         //Schedule a check for tomorrow's games (12:01 a.m. tomorrow morning (UTC))

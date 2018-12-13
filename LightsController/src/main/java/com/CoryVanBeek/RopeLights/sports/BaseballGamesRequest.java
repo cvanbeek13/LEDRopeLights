@@ -11,7 +11,7 @@ class BaseballGamesRequest extends SportsRequest<BaseballGamesResponse> {
         super(BaseballGamesResponse.class);
         this.teamId = teamId;
         this.date = date;
-        season = "current";
+        season = "latest";
     }
 
     @Override
