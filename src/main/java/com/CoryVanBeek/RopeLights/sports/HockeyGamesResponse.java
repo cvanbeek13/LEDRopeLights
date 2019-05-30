@@ -6,24 +6,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.TimeZone;
 
 /**
- * This class parses the specific MySportsFeed API JSON response for baseball games.
+ * This class parses the specific MySportsFeed API JSON response for hockey games.
  * See their docs here: https://www.mysportsfeeds.com/data-feeds/api-docs/
  *
  * @author Cory Van Beek
  */
-public class BaseballGamesResponse implements SportsResponse {
-    private static final Logger logger = LoggerFactory.getLogger(BaseballGamesResponse.class);
+public class HockeyGamesResponse implements SportsResponse {
+    private static final Logger logger = LoggerFactory.getLogger(HockeyGamesResponse.class);
 
 
     private ObjectMapper mapper;
-    public BaseballGame[] games;
+    public HockeyGame[] games;
 
-    public BaseballGamesResponse() {
+    public HockeyGamesResponse() {
         mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
@@ -31,8 +28,8 @@ public class BaseballGamesResponse implements SportsResponse {
     @Override
     public void parse(String jsonString) {
         try {
-            logger.trace("Parsing baseball response: \n{}", jsonString);
-            JSONBaseballResponse response = mapper.readValue(jsonString, JSONBaseballResponse.class);
+            logger.trace("Parsing hockey response: \n{}", jsonString);
+            JSONHockeyResponse response = mapper.readValue(jsonString, JSONHockeyResponse.class);
             this.games = response.games;
         } catch (IOException e) {
             logger.error("IOException while reading response", e);
@@ -46,7 +43,7 @@ public class BaseballGamesResponse implements SportsResponse {
 
     @Override
     public SportsGame getGame(int id) {
-        for (BaseballGame game : games) {
+        for (HockeyGame game : games) {
             if (game.schedule != null && game.schedule.id == id) {
                 return game;
             }
@@ -55,8 +52,8 @@ public class BaseballGamesResponse implements SportsResponse {
         return null;
     }
 
-    public static class JSONBaseballResponse {
-        public BaseballGame[] games;
+    public static class JSONHockeyResponse {
+        public HockeyGame[] games;
     }
 
 }

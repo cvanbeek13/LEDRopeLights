@@ -89,7 +89,7 @@ public class Main implements Runnable{
             AWSIotDevice device = new AWSIotDevice(thingName);
 
             awsIotClient.attach(device);
-            awsIotClient.setMaxConnectionRetries(0);
+            awsIotClient.setMaxConnectionRetries(1);
             awsIotClient.connect();
 
             LightsBridge controller = new LightsBridge(awsIotClient, device, properties);

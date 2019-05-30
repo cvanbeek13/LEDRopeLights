@@ -7,11 +7,11 @@ import java.util.Date;
  */
 class BaseballGamesRequest extends SportsRequest<BaseballGamesResponse> {
 
-    BaseballGamesRequest(int teamId) {
+    BaseballGamesRequest(int teamId, Date date) {
         super(BaseballGamesResponse.class);
         this.teamId = teamId;
-        date = new Date();
-        season = "current";
+        this.date = date;
+        season = "latest";
     }
 
     @Override

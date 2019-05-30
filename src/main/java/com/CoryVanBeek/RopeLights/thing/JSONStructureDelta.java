@@ -10,7 +10,7 @@ public class JSONStructureDelta implements Holder {
     public PropertiesHolder state = new PropertiesHolder();
 
     @Override
-    public PropertiesHolder getProps() {
+    public PropertiesHolder heldProperties() {
         return state;
     }
 }
